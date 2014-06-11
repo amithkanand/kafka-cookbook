@@ -17,6 +17,7 @@ template ::File.join(node[:kafka][:config_dir], 'zookeeper.properties') do
   owner node[:kafka][:user]
   group node[:kafka][:group]
   mode '644'
+  notifies :restart, "service[zookeeper]", :delayed
 end
 
 directory node[:zookeeper][:log_dir] do
@@ -35,6 +36,7 @@ template ::File.join(node[:kafka][:config_dir], 'zookeeper.log4j.properties') do
     process: 'zookeeper',
     log_dir: node[:zookeeper][:log_dir]
   })
+	notifies :restart, "service[zookeeper]", :delayed
 end
 
 template zookeeper_init_opts[:env_path] do
@@ -48,6 +50,7 @@ template zookeeper_init_opts[:env_path] do
     config: 'zookeeper.properties',
     log4j_config: 'zookeeper.log4j.properties'
   })
+	notifies :restart, "service[zookeeper]", :delayed
 end
 
 template zookeeper_init_opts[:script_path] do
