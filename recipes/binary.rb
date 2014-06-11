@@ -17,7 +17,7 @@ execute 'extract-kafka' do
   user node[:kafka][:user]
   group node[:kafka][:group]
   cwd node[:kafka][:build_dir]
-  command %(tar zxf #{local_file_path})
+  command %(tar zxf #{local_file_path} --exclude='zookeeper.properties' --exclude='server.properties' --exclude='log4j.properties')
   not_if { kafka_installed? }
 end
 
