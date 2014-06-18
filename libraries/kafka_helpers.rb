@@ -79,9 +79,10 @@ def zookeeper_connect_string
       connect_string << '/' unless node[:kafka][:zookeeper][:path].start_with?('/')
       connect_string << node[:kafka][:zookeeper][:path]
     end
-
-    connect_string
+  else
+      connect_string = "localhost:"+"#{node[:zookeeper][:port]}"
   end
+    connect_string
 end
 
 def kafka_log_dirs_string
