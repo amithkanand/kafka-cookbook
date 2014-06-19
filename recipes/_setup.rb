@@ -15,7 +15,8 @@ end
   node[:kafka][:install_dir],
   node[:kafka][:config_dir],
   node[:kafka][:log_dir],
-  node[:kafka][:build_dir]
+  node[:kafka][:build_dir],
+  node[:zookeeper][:data_dir]
 ].each do |dir|
   directory dir do
     owner node[:kafka][:user]

@@ -21,3 +21,12 @@ clientPort=<%= node[:zookeeper][:port] %>
 
 # Disable the per-ip limit on the number of connections since this is a non-production config
 maxClientCnxns=<%= node[:zookeeper][:max_client_connections] %>
+
+tickTime=2000
+initLimit=10
+syncLimit=5
+
+<% require 'ipaddr' %>
+<% node[:zookeeper][:servers].each do |server| %> 
+<%="server.#{IPAddr.new(server).mask("0.0.0.255").to_i}=#{server}:2888:3888" %>
+<% end %>
